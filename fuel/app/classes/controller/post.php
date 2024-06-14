@@ -2,26 +2,26 @@
 
 class Controller_Post extends Controller_Template
 {
-    /**
-     * The basic welcome message
-     *
-     * @access  public
-     * @return  Response
-     */
+    
     public function action_index()
     {
-        //return Response::forge(View::forge('post/index'));
-        $data = array();
+        $posts = Model_Post::find('all');
+        $data = array('posts' => $posts);
         $this->template->title = 'Welcome to blog';
-        $this->template->content = View::forge('post/index', $data);
+        $this->template->content = View::forge('post/index', $data, false);
     }
 
-    /**
-     * The basic welcome message
-     *
-     * @access  public
-     * @return  Response
-     */
+    public function action_view($id)
+    {
+        $post = Model_Post::find('first', array(
+            'where' => array('id' => $id)
+        ));
+
+        $data = array('post' => $post);
+        $this->template->title = $post->title.' in FuelPHP Blog';
+        $this->template->content = View::forge('post/view', $data, false);
+    }
+
     public function action_add()
     {
         //return Response::forge(View::forge('post/add'));

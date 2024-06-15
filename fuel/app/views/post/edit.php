@@ -1,5 +1,5 @@
-<h1>Post Add page</h1>
-    <?php echo Form::open('/post/add'); ?>
+<h1>Post Edit page</h1>
+    <?php echo Form::open('/post/edit/<?php echo $post->id;?>'); ?>
 <div class="form-group">
     <?php echo Form::label('Title', 'title'); ?>
     <?php echo Form::input('title', Input::post('title', isset($post) ? $post->title : ''),
@@ -7,7 +7,7 @@
 </div>
 <div class="form-group">
     <?php echo Form::label('Category', 'category'); ?>
-    <?php echo Form::select('category', 'none',
+    <?php echo Form::select('category', $post->category,
     array(
         'none' => 'None',
         'Web design' => "Web design",
@@ -36,6 +36,9 @@
     <?php echo Form::textarea('body', Input::post('body', isset($post) ? $post->body : ''),
     array('class' => 'form-control')); ?>
 </div>
+
+<input type="hidden" name="post_id" value="<?php echo $post->id; ?>">
+
 <div class="actions">
     <?php echo Form::submit('submit', 'Save',
     array('class' => 'btn btn-primary')) ?>

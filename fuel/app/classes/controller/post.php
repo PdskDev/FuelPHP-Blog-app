@@ -65,4 +65,13 @@ class Controller_Post extends Controller_Template
         $this->template->title = 'Edit: ' . $post->title . ' in FuelPHP Blog';
         $this->template->content = View::forge('post/edit', $data, false);
     }
+
+    public function action_delete($id)
+    {
+        $post = Model_Post::find($id);
+        $post->delete();
+
+        Session::set_flash('success', 'Post deleted successfully');
+        Response::redirect('/');
+    }
 }
